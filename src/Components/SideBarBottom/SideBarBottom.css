@@ -1,0 +1,24 @@
+#bottom {
+    width: 100%;
+    height: 30%;
+    padding: 10px 15px;
+
+    display: flex;
+    align-items: center;
+}
+
+#bottom .nav {
+    color: #fff;
+    font-size: 1.15em;
+
+    padding: 10px 20px;
+
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    cursor: default;
+}
+
+.nav .bx {
+    font-size: 1.35em;
+}

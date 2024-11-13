@@ -1,0 +1,15 @@
+#ai {
+    width: 100%;
+    margin-bottom: 20px;
+
+    display: flex;
+    align-items: center;
+}
+
+#ai #answer {
+    max-width: 70%;
+
+    color: #ececec;
+    overflow-wrap: break-word;
+    padding: .625rem 1.25rem;
+}

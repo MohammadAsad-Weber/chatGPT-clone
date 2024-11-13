@@ -1,0 +1,91 @@
+#container {
+    height: 100vh;
+    width: 80%;
+    padding: 40px 20px;
+    
+    position: relative;
+}
+
+#container #chat-area {
+    max-height: 76vh;
+
+    overflow: auto;
+    scrollbar-width: none;
+}
+
+#container #bgcackground-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+}
+
+#container #outer {
+    width: 80%;
+    color: #ececec;
+
+    position: absolute;
+    z-index: 1;
+    bottom: 35px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    background-color: #2f2f2f;
+    border: none;
+    border-radius: 30px;
+}
+
+#outer #input-area {
+    padding: 16px 25px;
+    padding-right: 65px;
+    position: relative;
+}
+
+#input-area #textarea {
+    outline: none;
+    max-height: 250px;
+
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+#input-area #placeholder {
+    color: #b4b4b4;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 25px;
+}
+
+#outer #input-area #send {
+    color: #2f2f2f;
+    font-size: 1.75em;
+    padding: 0 5px;
+
+    position: absolute;
+    bottom: 8px;
+    right: 10px;
+
+    background-color: #fff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#outer #input-area #send:disabled {
+    background-color: #8e8e8e;
+    cursor: default;
+}
+
+#container #note {
+    color: #b4b4b4;
+    text-align: center;
+    font-size: .75rem;
+    line-height: 1rem;
+
+    position: absolute;
+    z-index: 1;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
