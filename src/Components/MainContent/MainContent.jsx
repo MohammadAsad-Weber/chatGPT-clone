@@ -21,37 +21,47 @@ function MainContent() {
     };
 
     const handleClick = async () => {
-        context.setChatbox((prevChatbox) => [...prevChatbox, <UserBox question={context.query} />]);
-        textarea.textContent = '';
 
-        const options = {
-            method: 'POST',
-            headers: {
-                accept: 'application/json',
-                'content-type': 'application/json',
-                authorization: `Bearer ${OPENAI_API_KEY}`
-            },
-            body: JSON.stringify({
-                response_as_dict: true,
-                attributes_as_list: false,
-                show_base_64: true,
-                show_original_response: false,
-                temperature: 0,
-                max_tokens: 1000,
-                tool_choice: 'auto',
-                providers: ['openai/gpt-4o-mini'],
-                chatbot_global_action: 'You are a helpful assistant',
-                text: context.query
-            })
-        };
+        try {
+            if (context.query.length !== '') {
+                context.setChatbox((prevChatbox) => [...prevChatbox, <UserBox question={context.query} />]);
+                textarea.textContent = '';
 
-        const response = await fetch('https://api.edenai.run/v2/text/chat', options);
-        const data = await response.json();
+                const options = {
+                    method: 'POST',
+                    headers: {
+                        accept: 'application/json',
+                        'content-type': 'application/json',
+                        authorization: `Bearer ${OPENAI_API_KEY}`
+                    },
+                    body: JSON.stringify({
+                        response_as_dict: true,
+                        attributes_as_list: false,
+                        show_base_64: true,
+                        show_original_response: false,
+                        temperature: 0,
+                        max_tokens: 1000,
+                        tool_choice: 'auto',
+                        providers: ['openai/gpt-4o-mini'],
+                        chatbot_global_action: 'You are a helpful assistant',
+                        text: context.query
+                    })
+                };
 
-        context.setQuery('');
+                const response = await fetch('https://api.edenai.run/v2/text/chat', options);
+                const data = await response.json();
 
-        const output = data["openai/gpt-4o-mini"].generated_text;
-        context.setChatbox((prevChatbox) => [...prevChatbox, <RoboBox answer={output} />]);
+                context.setQuery('');
+
+                const output = data["openai/gpt-4o-mini"].generated_text;
+                context.setChatbox((prevChatbox) => [...prevChatbox, <RoboBox answer={output} />]);
+            }
+        } catch (error) {
+            textarea.textContent = '';
+            context.setQuery('');
+
+           setTimeout(()=>{ context.setChatbox((prevChatbox) => [...prevChatbox, <RoboBox answer={'Some error has been occured. \n Please try again later!'} />]);}, 1500)
+        }
     };
 
     return (
