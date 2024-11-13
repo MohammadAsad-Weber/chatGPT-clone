@@ -1,0 +1,15 @@
+#chatGPT {
+    width: 100vw;
+    min-height: 100vh;
+
+    display: flex;
+}
+
+#sidebar {
+    height: 100vh;
+    width: 20%;
+    min-width: 300px;
+     
+    background-color: #171717;
+    border-right: 1px solid #8b8b8b;
+}
