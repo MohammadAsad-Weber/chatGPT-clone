@@ -1,5 +1,6 @@
 #container {
     height: 100vh;
+    min-height: 540px;
     width: 80%;
     padding: 40px 20px;
     
