@@ -2,8 +2,21 @@
     width: 100%;
     margin-bottom: 20px;
 
+    position: relative;
+
     display: flex;
     align-items: center;
+}
+
+#ai #gpt-profile {
+    height: 30px;
+
+    position: absolute;
+    top: 0.465rem;
+    left: 0;
+
+    border: 1px solid #7e7e7e7f;
+    border-radius: 50%;
 }
 
 #ai #answer {
@@ -12,4 +25,5 @@
     color: #ececec;
     overflow-wrap: break-word;
     padding: .625rem 1.25rem;
+    margin-left: 1.5rem;
 }
