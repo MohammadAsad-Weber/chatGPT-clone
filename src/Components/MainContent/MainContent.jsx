@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import OPENAI_API_KEY from '../../assets/OPENAI_API_KEY';  // MY API KEY!
 import logoSvg from '../../assets/Icon.svg' // Background logo image
 import './MainContent.css'; // StyleSheet
@@ -9,8 +9,10 @@ import { ChatContext } from '../../Context';
 // Components
 import UserBox from '../UserBox/UserBox';
 import RoboBox from '../RoboBox/RoboBox';
+import Loader from '../Loader/Loader';
 
 function MainContent() {
+    const [chatLoading, setChatLoading] = useState(false);
 
     const context = useContext(ChatContext); // Using ChatContext API
     const information = 'ChatGPT can make mistakes. Check important info.';
@@ -25,6 +27,8 @@ function MainContent() {
         try {
             if (context.query.length !== '') {
                 context.setChatbox((prevChatbox) => [...prevChatbox, <UserBox question={context.query} />]);
+
+                setChatLoading(true)
                 textarea.textContent = '';
 
                 const options = {
@@ -48,19 +52,21 @@ function MainContent() {
                     })
                 };
 
-                const response = await fetch('https://api.edenai.run/v2/text/chat', options);
+                const response = await fetch('https://api.edenai.rn/v2/text/chat', options);
                 const data = await response.json();
 
                 context.setQuery('');
 
                 const output = data["openai/gpt-4o-mini"].generated_text;
+                setChatLoading(false)
                 context.setChatbox((prevChatbox) => [...prevChatbox, <RoboBox answer={output} />]);
             }
         } catch (error) {
             textarea.textContent = '';
             context.setQuery('');
 
-           setTimeout(()=>{ context.setChatbox((prevChatbox) => [...prevChatbox, <RoboBox answer={'Some error has been occured. \n Please try again later!'} />]);}, 1500)
+            setTimeout(() => { setChatLoading(false) }, 1900)
+            setTimeout(() => { context.setChatbox((prevChatbox) => [...prevChatbox, <RoboBox answer={'Some error has been occured. \n Please try again later!'} />]); }, 2000)
         }
     };
 
@@ -70,6 +76,7 @@ function MainContent() {
             <div id="chat-area">
                 {/* Chats Will Go Here */}
                 {context.chatbox.length !== 0 && context.chatbox} {/*Show the chats, if the array isn't empty*/}
+                {chatLoading && <Loader />}
             </div>
             <div id="outer">
                 <div id="input-area">
