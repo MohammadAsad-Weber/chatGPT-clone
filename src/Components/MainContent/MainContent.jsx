@@ -18,7 +18,7 @@ function MainContent() {
     const information = 'ChatGPT can make mistakes. Check important info.';
     const textarea = document.getElementById('textarea');
 
-    const handleKeyUp = (event) => {
+    const handleInput = (event) => {
         context.setQuery(event.target.textContent);
     };
 
@@ -60,8 +60,6 @@ function MainContent() {
             context.setChatbox((prevChatbox) => [...prevChatbox, <RoboBox answer={output} />]);
 
         } catch (error) {
-
-            textarea.textContent = '';
             context.setQuery('');
 
             setTimeout(() => {
@@ -82,9 +80,9 @@ function MainContent() {
             <div id="outer">
                 <div id="input-area">
                     <p id='textarea'
-                        onKeyUp={handleKeyUp}
+                        onInput={handleInput}
                         textcontent={context.query}
-                        contentEditable={true}
+                        contentEditable
                         suppressContentEditableWarning
                     ></p>
                     {context.query.length === 0 && <div id="placeholder">Message ChatGPT</div>} {/*Show the placeholder, if there's no text*/}
